@@ -1,6 +1,11 @@
 <?php $this->layout("_theme");
 
-include_once "config.php";
+
+require 'db/config.php';
+
+if ((!isset($_SESSION['adm_gmc_email']))) {
+  header('Location:  /painel');
+}
 
 $currentURL = $_SERVER['REQUEST_URI'];
 

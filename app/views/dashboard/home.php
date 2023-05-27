@@ -1,4 +1,9 @@
 <?php $this->layout("_theme"); ?>
+<?php
+if ((!isset($_SESSION['adm_gmc_email']))) {
+  header('Location:  /painel');
+}
+?>
 
 <div class="head-title">
   <div class="left">

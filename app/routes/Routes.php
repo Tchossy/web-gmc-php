@@ -14,6 +14,7 @@ class Routes
         "/form_mixed" => 'BaseController@formMixed',
 
         "/painel" => 'DashboardController@login',
+        "/painel/adm" => 'DashboardController@adm',
         "/painel/home" => 'DashboardController@home',
         "/painel/team" => 'DashboardController@team',
         "/painel/team/details/[0-9]+" => 'DashboardController@teamDetails',

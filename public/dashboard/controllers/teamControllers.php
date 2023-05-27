@@ -43,12 +43,15 @@ if ($type_form == 'get_all_team') {
                       <p>$type_team</p>
                     </td>
                     <td>
-                      <p>$amount_members_team</p>
+                      <p>$amount_members_team membros</p>
                     </td>
                     <td>
                       <p>$numberFormatted</p>
                     </td>
                     <td><span class='status $state_is'>$status_payment_team</span></td>
+                    <td>
+                      <p>$date_create</p>
+                    </td>
                     <td>
                       <button onclick='deleteTeam($id)' class='btn-delete'>
                         <i class='fas fa-trash-alt'></i>
@@ -116,6 +119,9 @@ if ($type_form == 'get_all_team_search') {
                         <p>$numberFormatted</p>
                       </td>
                       <td><span class='status $state_is'>$status_payment_team</span></td>
+                      <td>
+                        <p>$date_create</p>
+                      </td>
                       <td>
                         <button onclick='deleteTeam($id)' class='btn-delete'>
                           <i class='fas fa-trash-alt'></i>

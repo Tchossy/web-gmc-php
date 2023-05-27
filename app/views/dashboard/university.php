@@ -1,4 +1,9 @@
 <?php $this->layout("_theme"); ?>
+<?php
+if ((!isset($_SESSION['adm_gmc_email']))) {
+  header('Location:  /painel');
+}
+?>
 
 <!-- head-title -->
 <div class="head-title">
@@ -39,8 +44,7 @@
         <label for="name_university">
           Nome do universidade <span class="text-danger">*</span>
         </label>
-        <input name="name_university" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola" require>
+        <input name="name_university" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola" require>
       </div>
       <div>
         <label for="ref_university">
@@ -71,15 +75,13 @@
         <label for="name_university">
           Nome do universidade <span class="text-danger">*</span>
         </label>
-        <input id="name_university_edit" name="name_university" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola">
+        <input id="name_university_edit" name="name_university" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola">
       </div>
       <div>
         <label for="ref_university">
           Referencia da universidade <span class="text-danger">*</span>
         </label>
-        <input id="ref_university_edit" name="ref_university" class="form-control" type="text"
-          placeholder="Ex.: uni_ind_ang">
+        <input id="ref_university_edit" name="ref_university" class="form-control" type="text" placeholder="Ex.: uni_ind_ang">
       </div>
 
 
@@ -105,15 +107,13 @@
         <label for="">
           Nome do universidade <span class="text-danger">*</span>
         </label>
-        <input id="name_university_see" name="name_university" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola" disabled>
+        <input id="name_university_see" name="name_university" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola" disabled>
       </div>
       <div>
         <label for="">
           Referencia da universidade <span class="text-danger">*</span>
         </label>
-        <input id="ref_university_see" name="ref_university" class="form-control" type="text"
-          placeholder="Ex.: uni_ind_ang" disabled>
+        <input id="ref_university_see" name="ref_university" class="form-control" type="text" placeholder="Ex.: uni_ind_ang" disabled>
       </div>
     </form>
   </div>

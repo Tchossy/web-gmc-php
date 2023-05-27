@@ -1,4 +1,9 @@
 <?php $this->layout("_theme"); ?>
+<?php
+if ((!isset($_SESSION['adm_gmc_email']))) {
+  header('Location:  /painel');
+}
+?>
 
 <!-- head-title -->
 <div class="head-title">
@@ -78,8 +83,7 @@
         <label for="name_course">
           Nome do curso <span class="text-danger">*</span>
         </label>
-        <input id="name_course_edit" name="name_course" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola">
+        <input id="name_course_edit" name="name_course" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola">
       </div>
       <div>
         <label for="ref_course">
@@ -118,15 +122,13 @@
         <label for="">
           Nome do curso <span class="text-danger">*</span>
         </label>
-        <input id="name_course_see" name="name_course" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola" disabled>
+        <input id="name_course_see" name="name_course" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola" disabled>
       </div>
       <div>
         <label for="">
           Referencia da curso <span class="text-danger">*</span>
         </label>
-        <input id="ref_course_see" name="ref_course" class="form-control" type="text" placeholder="Ex.: uni_ind_ang"
-          disabled>
+        <input id="ref_course_see" name="ref_course" class="form-control" type="text" placeholder="Ex.: uni_ind_ang" disabled>
       </div>
       <div>
         <label for="name_faculty">

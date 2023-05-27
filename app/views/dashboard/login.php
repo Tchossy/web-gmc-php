@@ -1,3 +1,9 @@
+<?php
+if ((isset($_SESSION['adm_gmc_email']))) {
+  header('Location:  /painel/home');
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -51,18 +57,20 @@
                     </p>
                   </div>
 
-                  <form action="#">
+                  <div id="msgAlertaErroCad"></div>
+
+                  <form id="loginForm">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="inputEmail" required>
+                      <input name="email_address_adm" type="email" class="form-control" id="inputEmail" required>
                       <label for="inputEmail">Endereço de email</label>
                     </div>
 
                     <div class="form-group">
-                      <input type="password" class="form-control" id="inputPass" required>
+                      <input name="login_password_adm" type="password" class="form-control" id="inputPass" required>
                       <label for="inputPass">Palavra pass</label>
                     </div>
 
-                    <button class="btn">Conecte-se</button>
+                    <button type="submit" class="btn">Conecte-se</button>
                   </form>
                 </div>
               </div>
@@ -83,6 +91,9 @@
   <script src="<?= DASHBOARD_JS . "/countrySelect.min.js" ?>"></script>
 
   <script src="<?= DASHBOARD_JS . "/custom.js" ?>"></script>
+
+  <script src="<?= DASHBOARD_ACTIONS . "/actions_login_adm.js" ?>"></script>
+
 </body>
 
 </html>

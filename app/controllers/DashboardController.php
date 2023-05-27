@@ -14,6 +14,10 @@ class DashboardController
   {
     return DashboardTemplateController::view("login");
   }
+  public function adm()
+  {
+    return DashboardTemplateController::view("usersAdm");
+  }
   public function team()
   {
     return DashboardTemplateController::view("team");

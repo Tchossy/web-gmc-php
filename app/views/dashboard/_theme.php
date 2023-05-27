@@ -46,6 +46,12 @@
       </a>
     </li>
     <li>
+      <a href="/painel/adm">
+        <i class='bx bx-dialpad'></i>
+        <span class="text">Adm</span>
+      </a>
+    </li>
+    <li>
       <a href="/painel/team">
         <i class='bx bxs-group'></i>
         <span class="text">Equipe</span>
@@ -78,7 +84,7 @@
       </a>
     </li>
     <li>
-      <a id="logout" class="logout">
+      <a id="logout" class="logout" style="cursor: pointer;">
         <i class="bx bxs-log-out-circle"></i>
         <span class="text">Sair do painel</span>
       </a>
@@ -110,8 +116,8 @@
         <img src="https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png" />
       </div>
       <div class="containerInfoAdm">
-        <p id="name_adm">Rafael Pilarte</p>
-        <p id="email_adm">rafaelpilarte.rlps@gmail.com</p>
+        <p id="name_adm"></p>
+        <p id="email_adm"></p>
       </div>
     </div>
   </nav>
@@ -130,4 +136,5 @@
 </html>
 
 <script src="<?= DASHBOARD_JS . "/script.js" ?>"></script>
+<script src="<?= DASHBOARD_ACTIONS . "/actions_logout.js" ?>"></script>
 <script src="<?= DASHBOARD_JS . "/sweetalert.min.js" ?>"></script>
