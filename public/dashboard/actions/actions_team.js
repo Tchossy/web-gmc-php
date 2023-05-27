@@ -6,14 +6,48 @@ const msgAlerta = document.getElementById('msgAlertaErroCad')
 const cardForm = document.getElementById('registerForm')
 const cardEditForm = document.getElementById('editForm')
 
-const listTeam = async () => {
+const numRegister = document.getElementById('numRegister')
+const searchRegister = document.getElementById('searchRegister')
+const searchRegisterForm = document.getElementById('searchRegister')
+const searchRegisterValue = document.getElementById('searchRegisterValue')
+
+searchRegisterForm.addEventListener('submit', async event => {
+  event.preventDefault()
+
+  const dataForm = new FormData(searchRegisterForm)
+  dataForm.append('add', 1)
+
+  const dataFetch = await fetch(
+    baseURL +
+      'teamControllers.php?typeForm=get_all_team_search&searchRegisterValue=' +
+      searchRegisterValue.value
+  )
+
+  const response = await dataFetch.json()
+
+  if (response['error']) {
+    listTeam(numRegister.value)
+    alert(response['msg'])
+  } else {
+    tbody.innerHTML = response['msg']
+    cardForm.reset()
+  }
+})
+
+const listTeam = async limitRegister => {
   const data = await fetch(
-    baseURL + 'teamControllers.php?typeForm=get_all_team'
+    baseURL +
+      'teamControllers.php?typeForm=get_all_team&numRegister=' +
+      limitRegister
   )
   const response = await data.text()
   tbody.innerHTML = response
 }
-listTeam()
+listTeam(numRegister.value)
+
+numRegister.addEventListener('change', () => {
+  listTeam(numRegister.value)
+})
 
 cardForm.addEventListener('submit', async event => {
   event.preventDefault()

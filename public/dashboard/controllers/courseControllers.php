@@ -5,8 +5,10 @@ $dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $type_form = $_GET['typeForm'];
 
 if ($type_form == 'get_all_course') {
+  $num_register = $_GET['numRegister'];
 
-  $result_course = $pdo->prepare("SELECT * FROM course ORDER BY id DESC ");
+  $result_course = $pdo->prepare("SELECT * FROM course ORDER BY id DESC LIMIT :limitRegister");
+  $result_course->bindParam(':limitRegister', $num_register, PDO::PARAM_INT);
   $result_course->execute();
   $num_course = $result_course->rowCount();
 
@@ -64,6 +66,75 @@ if ($type_form == 'get_all_course') {
 
     echo $return;
   }
+}
+if ($type_form == 'get_all_course_search') {
+  $searchRegister = $_GET['searchRegisterValue'];
+
+  if (empty($searchRegister)) {
+    $return = ['error' => true, 'msg' => "O campo de pesquisa está vazio"];
+  } else {
+    $result_search = $pdo->prepare("SELECT * FROM course WHERE name_course LIKE :searchTerm");
+    $result_search->bindValue(':searchTerm', '%' . $searchRegister . '%', PDO::PARAM_STR);
+    $result_search->execute();
+    $num_search = $result_search->rowCount();
+
+    if ($num_search <= 0) {
+      $return = ['error' => true, 'msg' => "Erro: Não foi encontrado nenhum registo"];
+    } else {
+
+      $dataRegister = "";
+
+      while ($row_course = $result_search->fetch(PDO::FETCH_ASSOC)) {
+
+        extract($row_course);
+
+        $result_faculty = $pdo->prepare("SELECT * FROM faculty WHERE name_faculty = ? ORDER BY id LIMIT 1");
+        $result_faculty->execute(array($name_faculty));
+
+        $name_university_form;
+
+        while ($row_faculty = $result_faculty->fetch(PDO::FETCH_ASSOC)) {
+
+          $name_university_form = $row_faculty['name_university'];
+        }
+
+        $dataRegister .= "
+                    <tr>
+                      <td>
+                        <p>$id</p>
+                      </td>
+                      <td>
+                        <p>$ref_course</p>
+                      </td>
+                      <td>
+                        <p>$name_course</p>
+                      </td>
+                      <td>
+                        <p>$name_faculty</p>
+                      </td>
+                      <td>
+                        <p>$name_university_form</p>
+                      </td>
+                      <td>
+                        <button onclick='deleteCourse($id)' class='btn-delete'>
+                          <i class='fas fa-trash-alt'></i>
+                        </button>
+                        <button onclick='editeCourse($id)' class='btn-edit'>
+                          <i class='fas fa-edit'></i>
+                        </button>
+                        <button onclick='seeCourse($id)' class='btn-see'>
+                          <i class='fas fa-eye'></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ";
+      }
+
+      $return = ['error' => false, 'msg' => $dataRegister];
+    }
+  }
+
+  echo json_encode($return);
 }
 
 if ($type_form == 'get_all_faculty') {

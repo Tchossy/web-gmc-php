@@ -375,7 +375,6 @@ $(document).ready(function() {
     }
   ]
 
-
   // Função para gerar campos de integrantes
   function generateMemberFields(memberNumber) {
     var memberFields = `
@@ -436,7 +435,7 @@ $(document).ready(function() {
               <div class="select-input">
                 <span></span>
                 <select name="province_member_${memberNumber}" id="selectProvince${memberNumber}" type="text" class="form-control required"
-                  required="">
+                  required>
                   <option value="">Selecione a Província</option>
                 </select>
               </div>
@@ -447,8 +446,8 @@ $(document).ready(function() {
               <label for="selectCounty${memberNumber}">Município ${memberNumber}</label>
               <div class="select-input">
                 <span></span>
-                <select name="county_member_${memberNumber}" id="selectCounty${memberNumber}" type="text" class="form-control required" required="">
-                  <option value="Selecione">Selecione o Município</option>
+                <select name="county_member_${memberNumber}" id="selectCounty${memberNumber}" type="text" class="form-control required" required>
+                  <option value="">Selecione o Município</option>
                 </select>
               </div>
             </div>
@@ -460,7 +459,7 @@ $(document).ready(function() {
               <div class="select-input">
                 <span></span>
                 <select name="university_member_${memberNumber}" id="selectUniversity${memberNumber}" type="text" class="form-control required"
-                  required="">
+                  required>
                   <option value="Escolhe">Escolhe uma opção</option>
                 </select>
               </div>
@@ -471,8 +470,8 @@ $(document).ready(function() {
               <label for="selectFaculty${memberNumber}">Faculdade/Escola ${memberNumber}</label>
               <div class="select-input">
                 <span></span>
-                <select name="school_member_${memberNumber}" id="selectFaculty${memberNumber}" type="text" class="form-control required" required="">
-                  <option value="Selecione">Selecione a Universidade</option>
+                <select name="school_member_${memberNumber}" id="selectFaculty${memberNumber}" type="text" class="form-control required" required>
+                  <option value="">Selecione a Universidade</option>
                 </select>
               </div>
             </div>
@@ -483,8 +482,8 @@ $(document).ready(function() {
               <label for="selectCourse${memberNumber}">Curso ${memberNumber}</label>
               <div class="select-input">
                 <span></span>
-                <select name="course_member_${memberNumber}" id="selectCourse${memberNumber}" type="text" class="form-control required" required="">
-                  <option value="Selecione">Selecione a Faculdade</option>
+                <select name="course_member_${memberNumber}" id="selectCourse${memberNumber}" type="text" class="form-control required" required>
+                  <option value="">Selecione a Faculdade</option>
                 </select>
               </div>
             </div>
@@ -494,8 +493,8 @@ $(document).ready(function() {
               <label for="selecYearAttend${memberNumber}">Ano de Frequência ${memberNumber}</label>
               <div class="select-input">
                 <span></span>
-                <select name="year_attend_member_${memberNumber}" id="selecYearAttend${memberNumber}" type="text" class="form-control required"
-                  required="">
+                <select name="year_attend_member_${memberNumber}" id="selecYearAttend${memberNumber}" type="text" class="form-control required" required>
+                  <option value="">Selecione o Ano de Frequência</option>
                   <option value="2º Ano">2º Ano</option>
                   <option value="3º Ano">3º Ano</option>
                   <option value="4º Ano">4º Ano</option>

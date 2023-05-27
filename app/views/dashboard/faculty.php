@@ -39,8 +39,7 @@
         <label for="name_faculty">
           Nome do faculdade <span class="text-danger">*</span>
         </label>
-        <input name="name_faculty" class="form-control" type="text"
-          placeholder="Ex.: Faculdade de Ciências de Engenharia e Tecnologia" require>
+        <input name="name_faculty" class="form-control" type="text" placeholder="Ex.: Faculdade de Ciências de Engenharia e Tecnologia" require>
       </div>
       <div>
         <label for="ref_faculty">
@@ -79,8 +78,7 @@
         <label for="name_faculty">
           Nome do faculdade <span class="text-danger">*</span>
         </label>
-        <input id="name_faculty_edit" name="name_faculty" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola">
+        <input id="name_faculty_edit" name="name_faculty" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola">
       </div>
       <div>
         <label for="ref_faculty">
@@ -119,15 +117,13 @@
         <label for="">
           Nome do faculdade <span class="text-danger">*</span>
         </label>
-        <input id="name_faculty_see" name="name_faculty" class="form-control" type="text"
-          placeholder="Ex.: Universidade Independente de Angola" disabled>
+        <input id="name_faculty_see" name="name_faculty" class="form-control" type="text" placeholder="Ex.: Universidade Independente de Angola" disabled>
       </div>
       <div>
         <label for="">
           Referencia da faculdade <span class="text-danger">*</span>
         </label>
-        <input id="ref_faculty_see" name="ref_faculty" class="form-control" type="text" placeholder="Ex.: uni_ind_ang"
-          disabled>
+        <input id="ref_faculty_see" name="ref_faculty" class="form-control" type="text" placeholder="Ex.: uni_ind_ang" disabled>
       </div>
       <div>
         <label for="name_university">
@@ -146,7 +142,7 @@
     <div class="containerFilter">
       <div class="numRegister">
         <span>Registos por pagina</span>
-        <select name="" id="">
+        <select name="" id="numRegister">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
@@ -160,8 +156,8 @@
         </select>
       </div>
 
-      <form class="searchRegister">
-        <input type="text" placeholder="Procurar" />
+      <form class="searchRegister" id='searchRegister'>
+        <input type="text" placeholder="Procurar" id="searchRegisterValue" />
         <button type="submit" class="search-btn">
           <i class="bx bx-search"></i>
         </button>

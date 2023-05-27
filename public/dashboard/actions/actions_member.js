@@ -8,6 +8,7 @@ const tbodyMember = document.getElementById('tbodyMember')
 
 const msgAlerta = document.getElementById('msgAlertaErroCad')
 const msgEditTeamAlerta = document.getElementById('msgEditTeamAlerta')
+const msgEditMemberAlerta = document.getElementById('msgEditMemberAlerta')
 const cardMemberEditForm = document.getElementById('memberEditForm')
 const cardTeamEditForm = document.getElementById('teamEditForm')
 const cardEditForm = document.getElementById('editForm')
@@ -120,6 +121,13 @@ async function seeMember(idMember) {
       memberData.course_member
     document.getElementById('year_attend_integrante_team_see').value =
       memberData.year_attend_member
+
+    document.getElementById('company_member_team_see').value =
+      memberData.company_member
+    document.getElementById('function_member_team_see').value =
+      memberData.function_member
+    document.getElementById('skills_member_team_see').value =
+      memberData.skills_member
   }
 }
 
@@ -139,6 +147,7 @@ async function editMember(idMember) {
     cardModal.style.visibility = 'visible'
     cardModal.classList.add('show')
 
+    document.getElementById('id_edit').value = memberData.id
     document.getElementById('name_integrante_team_edit').value =
       memberData.name_member
     document.getElementById('identity_card_integrante_team_edit').value =
@@ -153,18 +162,13 @@ async function editMember(idMember) {
       memberData.household_member
     document.getElementById('email_integrante_team_edit').value =
       memberData.email_member
-    document.getElementById('province_integrante_team_edit').value =
-      memberData.province_member
-    document.getElementById('county_integrante_team_edit').value =
-      memberData.county_member
-    document.getElementById('university_integrante_team_edit').value =
-      memberData.university_member
-    document.getElementById('school_integrante_team_edit').value =
-      memberData.school_member
-    document.getElementById('course_integrante_team_edit').value =
-      memberData.course_member
-    document.getElementById('year_attend_integrante_team_edit').value =
-      memberData.year_attend_member
+
+    document.getElementById('company_integrante_team').value =
+      memberData.company_member
+    document.getElementById('function_integrante_team').value =
+      memberData.function_member
+    document.getElementById('skills_integrante_team').value =
+      memberData.skills_member
   }
 }
 cardMemberEditForm.addEventListener('submit', async event => {
@@ -172,27 +176,31 @@ cardMemberEditForm.addEventListener('submit', async event => {
 
   const dataFetch = new FormData(cardMemberEditForm)
 
-  // for (var dados of dataFetch.entries()) {
-  //   console.log(dados[0] + ' ' + dados[1] + ' ' + dados[2])
-  // }
+  for (var dados of dataFetch.entries()) {
+    console.log(dados[0] + ' -> ' + dados[1])
+  }
 
   dataFetch.append('add', 1)
 
-  const dataNewUser = await fetch(
-    baseURL + 'teamControllers.php?typeForm=edite_team',
+  const dataNew = await fetch(
+    baseURL + 'memberControllers.php?typeForm=edite_member',
     {
       method: 'POST',
       body: dataFetch
     }
   )
 
-  const response = await dataNewUser.json()
+  const response = await dataNew.json()
 
   if (response['error']) {
-    msgEditTeamAlerta.innerHTML = response['msg']
+    msgEditMemberAlerta.innerHTML = response['msg']
   } else {
-    msgEditTeamAlerta.innerHTML = response['msg']
+    msgEditMemberAlerta.innerHTML = response['msg']
   }
+
+  setTimeout(() => {
+    msgEditMemberAlerta.innerHTML = ''
+  }, 4000)
 
   getMember(lastPart)
 })
@@ -214,6 +222,9 @@ async function getTeam(idTeam) {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     })
+
+    document.getElementById('nameTeamH1').innerText = teamData.name_team
+    document.getElementById('nameTeamA').innerText = teamData.name_team
 
     document.getElementById('id_team_list').innerText = teamData.id
     document.getElementById('name_team_list').innerText = teamData.name_team
@@ -281,7 +292,7 @@ cardTeamEditForm.addEventListener('submit', async event => {
 
   dataFetch.append('add', 1)
 
-  const dataNewUser = await fetch(
+  const dataNew = await fetch(
     baseURL + 'teamControllers.php?typeForm=edite_team',
     {
       method: 'POST',
@@ -289,13 +300,17 @@ cardTeamEditForm.addEventListener('submit', async event => {
     }
   )
 
-  const response = await dataNewUser.json()
+  const response = await dataNew.json()
 
   if (response['error']) {
     msgEditTeamAlerta.innerHTML = response['msg']
   } else {
     msgEditTeamAlerta.innerHTML = response['msg']
   }
+
+  setTimeout(() => {
+    msgEditTeamAlerta.innerHTML = ''
+  }, 4000)
 
   getTeam(lastPart)
 })

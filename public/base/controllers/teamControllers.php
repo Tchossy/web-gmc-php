@@ -131,14 +131,13 @@ if ($type_form == 'create_team') {
           $email_member_form = $_POST["email_member_" . $i];
           $province_member_form = $_POST["province_member_" . $i];
           $county_member_form = $_POST["county_member_" . $i];
-          $university_member_form = '';
-          $school_member_form = '';
-          $course_member_form = '';
-          $year_attend_member_form = '';
-          $year_attend_member_form = '';
-          $company_member_form = '';
-          $function_member_form = '';
-          $skills_member_form = '';
+          $university_member_form = '-----------------';
+          $school_member_form = '-----------------';
+          $course_member_form = '-----------------';
+          $year_attend_member_form = '-----------------';
+          $company_member_form = '-----------------';
+          $function_member_form = '-----------------';
+          $skills_member_form = '-----------------';
 
           $sqlIntegrante = "INSERT INTO members (
             team_id,

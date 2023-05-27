@@ -290,48 +290,92 @@ if ($type_form == 'delete_member') {
 
 if ($type_form == 'edite_member') {
   $id_member = $dataForm['idMember'];
-  $name_member_form = $dataForm['name_member'];
-  $ref_member_form = $dataForm['ref_member'];
-  $name_member_form = $dataForm['name_member'];
 
+  $name_member_form = $dataForm['name_member'];
+  $identity_card_member_form = $dataForm['identity_card_member'];
+  $nif_member_form = $dataForm['nif_member'];
+  $age_member_form = $dataForm['age_member'];
+  $telephone_member_form = $dataForm['telephone_member'];
+  $household_member_form = $dataForm['household_member'];
+  $email_member_form = $dataForm['email_member'];
+
+  $province_member_form = $dataForm['province_member'];
+  $county_member_form = $dataForm['county_member'];
+
+  $university_member_form = '----------------';
+  $school_member_form = '----------------';
+  $course_member_form = '----------------';
+  $year_attend_member_form = '----------------';
+  $company_member_form = '----------------';
+  $function_member_form = '----------------';
+  $skills_member_form = '----------------';
   $return = "";
 
   if (empty($name_member_form)) {
-    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> O campo nome da equipa está vazio </div>"];
-  } elseif (empty($ref_member_form)) {
-    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo equipa está vazio </div>"];
-  } elseif (empty($name_member_form)) {
-    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: Não foi selecionada a universidade </div>"];
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> O campo Nome do integrante está vazio </div>"];
+  } elseif (empty($identity_card_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo Bilhete de Identidade está vazio </div>"];
+  } elseif (empty($nif_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo NIF está vazio </div>"];
+  } elseif (empty($age_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo Idade está vazio </div>"];
+  } elseif (empty($telephone_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo Telefone está vazio </div>"];
+  } elseif (empty($household_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo Morada está vazio </div>"];
+  } elseif (empty($email_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: O campo Email está vazio </div>"];
+  } elseif (empty($province_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: A província não foi selecionada </div>"];
+  } elseif (empty($county_member_form)) {
+    $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Erro: A província não foi selecionada </div>"];
   } else {
-    $result_member = $pdo->prepare("SELECT * FROM members WHERE name_member = ? ORDER BY id LIMIT 1");
-    $result_member->execute(array($name_member_form));
-    $num_member = $result_member->rowCount();
+    $sql = $pdo->prepare("UPDATE members SET name_member=?, identity_card_member=?, nif_member=?, age_member=?, telephone_member=?, household_member=?, email_member=?, province_member=?, county_member=?, university_member=?, school_member=?, course_member=?, year_attend_member=?, company_member=?, function_member=?, skills_member=? WHERE id=31 ");
 
-    if ($num_member <= 0) {
-      $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> A universidade $name_member_form selecionada não está cadastra</div>"];
-    } else {
-      $ref_member_form;
-
-      while ($row_member = $result_member->fetch(PDO::FETCH_ASSOC)) {
-        extract($row_member);
-
-        $ref_member_form = $ref_member;
-      }
-
-      $sql = $pdo->prepare("UPDATE member SET name_member=?, ref_member=?, ref_member=?, name_member=? WHERE id=? ");
-
-      if ($sql->execute(array(
-        $name_member_form,
-        $ref_member_form,
-        $ref_member_form,
-        $name_member_form,
-        $id_member
-      ))) {
-        $return = ['error' => false, 'msg' =>  "<div class='alert alert-success' role='alert' id='msgAlerta'> Dados da equipa actualizados com sucesso </div>"];
-      } else {
-        $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Ouve um erro ao actualizar os dados da equipa </div>"];
-      };
+    if (!empty($_POST["university_member"])) {
+      $university_member_form = $_POST["university_member"];
     }
+    if (!empty($_POST["school_member"])) {
+      $school_member_form = $_POST["school_member"];
+    }
+    if (!empty($_POST["course_member"])) {
+      $course_member_form = $_POST["course_member"];
+    }
+    if (!empty($_POST["year_attend_member"])) {
+      $year_attend_member_form = $_POST["year_attend_member"];
+    }
+    if (!empty($_POST["company_member"])) {
+      $company_member_form = $_POST["company_member"];
+    }
+    if (!empty($_POST["function_member"])) {
+      $function_member_form = $_POST["function_member"];
+    }
+    if (!empty($_POST["skills_member"])) {
+      $skills_member_form = $_POST["skills_member"];
+    }
+
+    if ($sql->execute(array(
+      $name_member_form,
+      $identity_card_member_form,
+      $nif_member_form,
+      $age_member_form,
+      $telephone_member_form,
+      $household_member_form,
+      $email_member_form,
+      $province_member_form,
+      $county_member_form,
+      $university_member_form,
+      $school_member_form,
+      $course_member_form,
+      $year_attend_member_form,
+      $company_member_form,
+      $function_member_form,
+      $skills_member_form
+    ))) {
+      $return = ['error' => false, 'msg' =>  "<div class='alert alert-success' role='alert' id='msgAlerta'> Dados do membro actualizados com sucesso </div>"];
+    } else {
+      $return = ['error' => true, 'msg' => "<div class='alert alert-danger' role='alert' id='msgAlerta'> Ouve um erro ao actualizar os dados do membro </div>"];
+    };
   }
   echo json_encode($return);
 }

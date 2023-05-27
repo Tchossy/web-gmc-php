@@ -66,7 +66,7 @@ if ($type_action == 'get_team') {
 
       $return .= "
                   <tr>
-                    <td>$name_team Solution</p>
+                    <td>$name_team</p>
                     </td>
                     <td>
                       <p>$type_team</p>

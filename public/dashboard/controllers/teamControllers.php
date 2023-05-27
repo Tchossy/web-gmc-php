@@ -5,8 +5,10 @@ $dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $type_form = $_GET['typeForm'];
 
 if ($type_form == 'get_all_team') {
+  $num_register = $_GET['numRegister'];
 
-  $result_team = $pdo->prepare("SELECT * FROM team ORDER BY id DESC ");
+  $result_team = $pdo->prepare("SELECT * FROM team ORDER BY id DESC LIMIT :limitRegister");
+  $result_team->bindParam(':limitRegister', $num_register, PDO::PARAM_INT);
   $result_team->execute();
   $num_team = $result_team->rowCount();
 
@@ -63,6 +65,76 @@ if ($type_form == 'get_all_team') {
 
     echo $return;
   }
+}
+
+if ($type_form == 'get_all_team_search') {
+  $searchRegister = $_GET['searchRegisterValue'];
+
+  if (empty($searchRegister)) {
+    $return = ['error' => true, 'msg' => "O campo de pesquisa está vazio"];
+  } else {
+    $result_search = $pdo->prepare("SELECT * FROM team WHERE name_team LIKE :searchTerm");
+    $result_search->bindValue(':searchTerm', '%' . $searchRegister . '%', PDO::PARAM_STR);
+    $result_search->execute();
+    $num_search = $result_search->rowCount();
+
+    if ($num_search <= 0) {
+      $return = ['error' => true, 'msg' => "Erro: Não foi encontrado nenhum registo"];
+    } else {
+
+      $dataRegister = "";
+
+      while ($row_team = $result_search->fetch(PDO::FETCH_ASSOC)) {
+
+        extract($row_team);
+
+        $numberFormatted = number_format($value_payment_team, 2, ',', '.');
+
+        $state_is = '';
+
+        if ($status_payment_team == 'Pago') {
+          $state_is = 'completed';
+        } else {
+          $state_is = 'pending';
+        }
+
+        $dataRegister .= "
+                    <tr>
+                      <td>
+                        <p>$id</p>
+                      </td>
+                      <td>
+                        <p>$name_team</p>
+                      </td>
+                      <td>
+                        <p>$type_team</p>
+                      </td>
+                      <td>
+                        <p>$amount_members_team</p>
+                      </td>
+                      <td>
+                        <p>$numberFormatted</p>
+                      </td>
+                      <td><span class='status $state_is'>$status_payment_team</span></td>
+                      <td>
+                        <button onclick='deleteTeam($id)' class='btn-delete'>
+                          <i class='fas fa-trash-alt'></i>
+                        </button>
+                        <a href='/painel/team/details/$id'>
+                          <button class='btn-edit'>
+                            <i class='fas fa-edit'></i>
+                          </button>
+                        </a>
+                      </td>
+                    </tr>
+                  ";
+      }
+
+      $return = ['error' => false, 'msg' => $dataRegister];
+    }
+  }
+
+  echo json_encode($return);
 }
 
 if ($type_form == 'create_team') {

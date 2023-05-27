@@ -5,8 +5,10 @@ $dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $type_form = $_GET['typeForm'];
 
 if ($type_form == 'get_all_faculty') {
+  $num_register = $_GET['numRegister'];
 
-  $result_faculty = $pdo->prepare("SELECT * FROM faculty ORDER BY id DESC ");
+  $result_faculty = $pdo->prepare("SELECT * FROM faculty ORDER BY id DESC LIMIT :limitRegister");
+  $result_faculty->bindParam(':limitRegister', $num_register, PDO::PARAM_INT);
   $result_faculty->execute();
   $num_faculty = $result_faculty->rowCount();
 
@@ -50,6 +52,62 @@ if ($type_form == 'get_all_faculty') {
 
     echo $return;
   }
+}
+if ($type_form == 'get_all_faculty_search') {
+  $searchRegister = $_GET['searchRegisterValue'];
+
+  if (empty($searchRegister)) {
+    $return = ['error' => true, 'msg' => "O campo de pesquisa está vazio"];
+  } else {
+    $result_search = $pdo->prepare("SELECT * FROM faculty WHERE name_faculty LIKE :searchTerm");
+    $result_search->bindValue(':searchTerm', '%' . $searchRegister . '%', PDO::PARAM_STR);
+    $result_search->execute();
+    $num_search = $result_search->rowCount();
+
+    if ($num_search <= 0) {
+      $return = ['error' => true, 'msg' => "Erro: Não foi encontrado nenhum registo"];
+    } else {
+
+      $dataRegister = "";
+
+      while ($row_faculty = $result_search->fetch(PDO::FETCH_ASSOC)) {
+
+        extract($row_faculty);
+
+        $dataRegister .= "
+                  <tr>
+                    <td>
+                      <p>$id</p>
+                    </td>
+                    <td>
+                      <p>$ref_faculty</p>
+                    </td>
+                    <td>
+                      <p>$name_faculty</p>
+                    </td>
+                    <td>
+                      <p>$name_university</p>
+                    </td>
+                    <td>
+                      <button onclick='deleteFaculty($id)' class='btn-delete'>
+                        <i class='fas fa-trash-alt'></i>
+                      </button>
+                      <button onclick='editeFaculty($id)' class='btn-edit'>
+                        <i class='fas fa-edit'></i>
+                      </button>
+                      <button onclick='seeFaculty($id)' class='btn-see'>
+                        <i class='fas fa-eye'></i>
+                      </button>
+                    </td>
+                  </tr>
+        ";
+      }
+
+      $return = ['error' => false, 'msg' => $dataRegister];
+    }
+  }
+
+  echo json_encode($return);
 }
 
 if ($type_form == 'get_all_data_faculty') {

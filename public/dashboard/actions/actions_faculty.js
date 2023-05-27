@@ -9,13 +9,44 @@ const msgEditAlerta = document.getElementById('msgAlertaErroEditCard')
 const universitySelect = document.getElementById('universitySelect')
 const universityEditSelect = document.getElementById('university_select_edit')
 
-const listFaculty = async () => {
+const numRegister = document.getElementById('numRegister')
+const searchRegister = document.getElementById('searchRegister')
+const searchRegisterForm = document.getElementById('searchRegister')
+const searchRegisterValue = document.getElementById('searchRegisterValue')
+
+searchRegisterForm.addEventListener('submit', async event => {
+  event.preventDefault()
+
+  const dataForm = new FormData(searchRegisterForm)
+  dataForm.append('add', 1)
+
+  const dataFetch = await fetch(
+    baseURL +
+      'facultyControllers.php?typeForm=get_all_faculty_search&searchRegisterValue=' +
+      searchRegisterValue.value
+  )
+
+  const response = await dataFetch.json()
+
+  if (response['error']) {
+    listFaculty(numRegister.value)
+    alert(response['msg'])
+  } else {
+    tbody.innerHTML = response['msg']
+    cardForm.reset()
+  }
+})
+
+const listFaculty = async limitRegister => {
   const data = await fetch(
-    baseURL + 'facultyControllers.php?typeForm=get_all_faculty'
+    baseURL +
+      'facultyControllers.php?typeForm=get_all_faculty&numRegister=' +
+      limitRegister
   )
   const response = await data.text()
   tbody.innerHTML = response
 }
+listFaculty(numRegister.value)
 
 const listUniversity = async () => {
   await fetch(baseURL + 'facultyControllers.php?typeForm=get_all_university')
@@ -35,9 +66,11 @@ const listUniversity = async () => {
     })
     .catch(error => console.error('Erro:', error))
 }
-
 listUniversity()
-listFaculty()
+
+numRegister.addEventListener('change', () => {
+  listFaculty(numRegister.value)
+})
 
 cardForm.addEventListener('submit', async event => {
   event.preventDefault()

@@ -7,17 +7,50 @@ const cardForm = document.getElementById('registerForm')
 const cardEditForm = document.getElementById('editForm')
 const msgEditAlerta = document.getElementById('msgAlertaErroEditCard')
 
-const listUniversity = async () => {
+const numRegister = document.getElementById('numRegister')
+const searchRegister = document.getElementById('searchRegister')
+const searchRegisterForm = document.getElementById('searchRegister')
+const searchRegisterValue = document.getElementById('searchRegisterValue')
+
+searchRegisterForm.addEventListener('submit', async event => {
+  event.preventDefault()
+
+  const dataForm = new FormData(searchRegisterForm)
+  dataForm.append('add', 1)
+
+  const dataFetch = await fetch(
+    baseURL +
+      'universityControllers.php?typeForm=get_all_university_search&searchRegisterValue=' +
+      searchRegisterValue.value
+  )
+
+  const response = await dataFetch.json()
+
+  if (response['error']) {
+    listUniversity(numRegister.value)
+    alert(response['msg'])
+  } else {
+    tbody.innerHTML = response['msg']
+    cardForm.reset()
+  }
+})
+
+const listUniversity = async limitRegister => {
   const data = await fetch(
-    baseURL + 'universityControllers.php?typeForm=get_all_university'
+    baseURL +
+      'universityControllers.php?typeForm=get_all_university&numRegister=' +
+      limitRegister
   )
 
   const response = await data.text()
 
   tbody.innerHTML = response
 }
+listUniversity(numRegister.value)
 
-listUniversity()
+numRegister.addEventListener('change', () => {
+  listUniversity(numRegister.value)
+})
 
 cardForm.addEventListener('submit', async event => {
   event.preventDefault()

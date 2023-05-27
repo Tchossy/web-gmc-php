@@ -125,7 +125,7 @@
     <div class="containerFilter">
       <div class="numRegister">
         <span>Registos por pagina</span>
-        <select name="" id="">
+        <select name="" id="numRegister" id="numRegister">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="15">15</option>
@@ -139,8 +139,8 @@
         </select>
       </div>
 
-      <form class="searchRegister">
-        <input type="text" placeholder="Procurar" />
+      <form class="searchRegister" id='searchRegister'>
+        <input type="text" placeholder="Procurar" id="searchRegisterValue" />
         <button type="submit" class="search-btn">
           <i class="bx bx-search"></i>
         </button>
